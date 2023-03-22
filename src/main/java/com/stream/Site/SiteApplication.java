@@ -1,8 +1,11 @@
 package com.stream.Site;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +24,13 @@ public class SiteApplication {
 		System.out.println("range in bytes() : " + range);
 		return service.getVideo(title);
 	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(SiteApplication.class, args);
 	}
+	@Bean
+	public String getName(){
+		return "Julius";
+	}
+	}
 
-}

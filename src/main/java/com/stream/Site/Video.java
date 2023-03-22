@@ -1,14 +1,20 @@
 package com.stream.Site;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Document(value = "Video")
+@RestController
+@Component
 public class Video {
 
     @Id
@@ -27,11 +33,11 @@ public class Video {
 
     @PostMapping("/like")
     public void like(){
-        this.likes = this.likes+1;
+        this.likes = +1;
     }
 
-    
     public void dislike(String Id){
+
         List<String> likedVideos = user.getLikedVideos();
         if(likedVideos.contains(userId)){
             this.dislikes=this.dislikes+1;
@@ -52,6 +58,7 @@ public class Video {
     public String getId() {
         return Id;
     }
+    @GetMapping("/getLikes")
     public Integer getLikes() {
         return likes;
     }
