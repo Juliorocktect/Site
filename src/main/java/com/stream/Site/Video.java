@@ -30,11 +30,13 @@ public class Video {
     private List<Comment> comments;
 
     public User user;
-
-    @PostMapping("/like")
-    public void like(){
-        this.likes = +1;
+    public Video getVideobyId(String videoId){
+        //return videoRepo.findById(videoId);
+        //orElseThrow
+        return null;
     }
+    @PostMapping("/like")
+
 
     public void dislike(String Id){
 

@@ -59,5 +59,27 @@ public class User {
             User user = sortedList.get(0);
         return user;
     }
+    public void addToSubscribedToUsers(String userId){
+        subscribedToUsers.add(userId);
+    }
+    public void removeFromSubscribedToUsers(String userId){
+        subscribedToUsers.remove(userId);
+    }
+    public void addSubscribedTo(String userId){
+        subscribers.add(userId);
+    }
+    public void addToDislikedVideos(String videoId){
+        dislikedVideos.add(videoId);
+    }
+    public void addToLikedVideos(String videoId){
+        likedVideos.add(videoId);
+    }
+    public void removeFromDislikedVideos(String videoId){
+        dislikedVideos.remove(videoId);
+    }
+    public void addToHistory(String videoId){
+        videoHistory.add(videoId);
+    }
+
 
 }
