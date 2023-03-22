@@ -3,10 +3,10 @@
 > Todo-Liste
 
 - [ ] Fix Nullpointer exception
-  
 - [ ] REST API for Video Class
-  
 - [ ] Implement User creation
+- [ ] Mongo DB Intrgration
+- [ ] Restructure the Project
   
   ```java
   public User(String firstName, String lastName, String userName, String pictureUrl) {  
