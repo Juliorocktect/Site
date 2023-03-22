@@ -2,13 +2,7 @@
 
 > Todo-Liste
 
-- [ ] Fix Nullpointer exception
-- [ ] REST API for Video Class
-- [ ] Implement User creation
-- [ ] Mongo DB Intrgration
-- [ ] Restructure the Project
-  
-  ```java
+- [ ] Fix Nullpointer exception ```java
   public User(String firstName, String lastName, String userName, String pictureUrl) {  
    this.id = RandomStringUtils.randomAlphanumeric(10);  
    this.firstName = firstName;  
@@ -23,3 +17,9 @@
    return ResponseEntity.ok("success");  
   }
   ```
+- [ ] REST API for Video Class
+- [ ] Implement User creation
+- [ ] Mongo DB Intrgration
+- [ ] Restructure the Project
+  
+  
