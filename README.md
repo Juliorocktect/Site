@@ -1,8 +1,8 @@
 **Site**
 
 > Todo-Liste
-
-- [ ] Fix Nullpointer exception ```java
+- [ ]  Fix Nullpointer exception
+-  ```java
   public User(String firstName, String lastName, String userName, String pictureUrl) {  
    this.id = RandomStringUtils.randomAlphanumeric(10);  
    this.firstName = firstName;  
