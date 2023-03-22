@@ -16,4 +16,8 @@ public class User {
     private List<String> likedVideos;
     private List<String> dislikedVideos;
 
+    public List<String> getLikedVideos() {
+        return likedVideos;
+    }
+
 }
