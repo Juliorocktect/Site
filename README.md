@@ -22,5 +22,6 @@
 - [ ] Implement User creation
 - [ ] Mongo DB Intrgration
 - [ ] Restructure the Project
+- [ ] Implementation of Search function
   
   
