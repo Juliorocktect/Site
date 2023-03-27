@@ -1,15 +1,17 @@
-package com.stream.Site;
+package com.stream.Site.Model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
 @Component
+@Data
 public class Comment {
-    private String id;
     private String content;
     private String authorId;
     private Integer likes;

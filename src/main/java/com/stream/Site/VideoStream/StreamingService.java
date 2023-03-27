@@ -1,4 +1,4 @@
-package com.stream.Site;
+package com.stream.Site.VideoStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;

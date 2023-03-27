@@ -1,7 +1,7 @@
 package com.stream.Site.Service;
 
 import com.stream.Site.Repository.UserRepo;
-import com.stream.Site.User;
+import com.stream.Site.Model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +15,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class UserService {
     private User user;
     private UserRepo repo;
+
+
 
     @RequestMapping(
             value = "/createNewUser",
