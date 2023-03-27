@@ -1,5 +1,6 @@
 package com.stream.Site;
 
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
@@ -12,8 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Document(value = "Video")
-@RestController
+@Document
+@Data
 @Component
 public class Video {
 
@@ -30,51 +31,21 @@ public class Video {
     private List<Comment> comments;
 
     public User user;
-    public Video getVideobyId(String videoId){
-        //return videoRepo.findById(videoId);
-        //orElseThrow
-        return null;
+
+    public Video(String title, String description, String userId,String videoUrl, String thumbnailUrl) {
+        this.title = title;
+        this.description = description;
+        this.userId = userId;
+        this.videoUrl = videoUrl;
+        this.thumbnailUrl = thumbnailUrl;
     }
-    @PostMapping("/like")
 
-
-    public void dislike(String Id){
-
+    @PostMapping("/dislike")
+    public void dislike(String Id) {
         List<String> likedVideos = user.getLikedVideos();
-        if(likedVideos.contains(userId)){
-            this.dislikes=this.dislikes+1;
+        if (likedVideos.contains(userId)) {
+            this.dislikes = this.dislikes + 1;
         }
-    }
-    public String getThumbnailUrl() {
-        return thumbnailUrl;
-    }
-    public List<Comment> getComments() {
-        return comments;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public Integer getDislikes() {
-        return dislikes;
-    }
-    public String getId() {
-        return Id;
-    }
-    @GetMapping("/getLikes")
-    public Integer getLikes() {
-        return likes;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public Integer getViews() {
-        return views;
-    }
-    public String getUserId() {
-        return userId;
-    }
-    public String getVideoUrl() {
-        return videoUrl;
     }
 
     
