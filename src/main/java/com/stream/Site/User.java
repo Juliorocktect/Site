@@ -31,7 +31,7 @@ public class User {
     private List<String> videoHistory;
     private List<String> likedVideos;
     private List<String> dislikedVideos;
-    private List<User> allUsers;
+    public List<User> allUsers;
 
     public User(String firstName, String lastName, String userName, String pictureUrl) {
         this.id = RandomStringUtils.randomAlphanumeric(10);

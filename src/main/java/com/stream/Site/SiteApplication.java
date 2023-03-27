@@ -1,6 +1,7 @@
 package com.stream.Site;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import com.stream.Site.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,6 +28,9 @@ public class SiteApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiteApplication.class, args);
+		User user = new User(null, null, null, null);
+		user.allUsers.add(user);
+
 	}
 	@Bean
 	public String getName(){
