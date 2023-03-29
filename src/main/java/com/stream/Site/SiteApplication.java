@@ -32,7 +32,6 @@ public class SiteApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiteApplication.class, args);
-		User user = new User(null, null, null, null);
 	}
 	@Bean
 	public String getName(){
@@ -46,7 +45,7 @@ public class SiteApplication {
 	@Bean
 	CommandLineRunner runner(UserRepo repo){
 		return args -> {
-			User user = new User("Juliu","Klu","Julio","https://google.com");
+			User user = new User("jihawuih","Juliu","Klu","Julio","https://google.com");
 			repo.insert(user);
 			repo.save(user);
 		};

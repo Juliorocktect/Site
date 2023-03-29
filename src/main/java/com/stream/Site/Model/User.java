@@ -20,6 +20,7 @@ import java.util.List;
 public class User {
     @Id
     private String id;
+    private String passWord;
     private String firstName;
     private String lastName;
     private String userName;
@@ -30,16 +31,12 @@ public class User {
     private List<String> likedVideos;
     private List<String> dislikedVideos;
 
-    public User(String firstName, String lastName, String userName, String pictureUrl) {
+    public User(String passWord,String firstName, String lastName, String userName, String pictureUrl) {
+        this.passWord = passWord;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.pictureUrl = pictureUrl;
-    }
-    @PostMapping("/createNewUser")
-    private ResponseEntity<?> createNewUser(@RequestParam String firstName, @RequestParam String lastName,@RequestParam String userName,@RequestParam String pictureUrl){
-        User user = new User(firstName, lastName, userName, pictureUrl);
-        return ResponseEntity.ok("success");
     }
     public void addToSubscribedToUsers(String userId){
         subscribedToUsers.add(userId);
