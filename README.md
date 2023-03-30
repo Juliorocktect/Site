@@ -2,10 +2,8 @@
 **Site**
 
 > Todo-Liste
-- [ ] REST API for Video Class
-- [ ] Implement User creation
-- [ ] Mongo DB Intrgration
 - [ ] Restructure the Project
+- [ ] addComment function
 - [ ] Implementation of Search function
-  
+- [ ] 
   

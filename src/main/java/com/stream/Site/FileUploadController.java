@@ -17,14 +17,33 @@ import java.nio.file.Paths;
 @RestController
 public class FileUploadController {
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file")MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
-         if (file.isEmpty()){
-             redirectAttributes.addFlashAttribute("Error", "select file to upload");
-             return "redirect:/";
-         }
-         Path path = Paths.get("D:\\IntelliJ\\Site\\Site\\src\\main\\resources\\videos", file.getOriginalFilename());
-         Files.write(path,file.getBytes());
-         redirectAttributes.addFlashAttribute("success massage", "File upload success, File name : " + file.getOriginalFilename());
-         return "redirect:/";
+    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+        // Define the path where the file will be saved
+        Path path = Paths.get("videos/" + file.getOriginalFilename());
+
+        try {
+            // Save the file to the defined path
+            Files.copy(file.getInputStream(), path);
+            renameFile(file.getOriginalFilename(),"NewName");
+        } catch (IOException e) {
+            // Handle any exceptions that may occur
+            e.printStackTrace();
+            return "File upload failed";
+        }
+
+        return "File uploaded successfully";
+    }
+    public void renameFile(String oldName, String newName) {
+        // Define the old and new file paths
+        Path oldPath = Paths.get(oldName);
+        Path newPath = Paths.get(newName);
+
+        try {
+            // Rename the file
+            Files.move(oldPath, newPath);
+        } catch (IOException e) {
+            // Handle any exceptions that may occur
+            e.printStackTrace();
+        }
     }
 }

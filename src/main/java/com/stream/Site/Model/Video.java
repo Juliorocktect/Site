@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class Video {
 
     @Id
-    private String Id;
+    private String id;
     private String title;
     private String description;
     private String userId;

@@ -17,10 +17,8 @@ public class Comment {
     private Integer likes;
     private Integer dislikes;
 
-    public Comment(String content, String author, Integer likes, Integer dislikes) {
+    public Comment(String content, String author) {
         this.content = content;
         this.authorId = author;
-        this.likes = likes;
-        this.dislikes = dislikes;
     }
 }

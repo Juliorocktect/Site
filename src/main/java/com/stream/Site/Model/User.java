@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @Getter
 @Setter
-@RestController
 @Component
 @Data
 @Document("users")

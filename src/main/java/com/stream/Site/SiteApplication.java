@@ -48,6 +48,7 @@ public class SiteApplication {
 			User user = new User("jihawuih","Juliu","Klu","Julio","https://google.com");
 			repo.insert(user);
 			repo.save(user);
+			repo.delete(user);
 		};
 
 	}

@@ -11,18 +11,20 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class UserController {
 
-
-
-    private UserService service;
+    @Autowired
+    private final UserService service = new UserService();
 
     @RequestMapping(
             value = "/createNewUser",
-            params = {"firstName",
+            params = {
+                    "passWord",
+                    "firstName",
                     "lastName",
                     "userName",
                     "pictureUrl",
@@ -44,13 +46,11 @@ public class UserController {
     public List<User> getAllUsers(){
         return service.getAllUsers();
     }
-    @RequestMapping(value = "/getUserPerId",
-            params = {
-            "id"
-            }
-            ,method = POST)
-    public Optional<User> getUserPerId(@RequestParam String Id){
-        return service.getUserPerId(Id);
+
+    //remove due to security problems
+    @GetMapping("/getUserPerId/{id}")
+    public User getUserPerId(@PathVariable String id){
+        return service.getUserPerId(id);
     }
 
     @RequestMapping(
