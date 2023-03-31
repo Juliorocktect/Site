@@ -44,7 +44,6 @@ public class UserService {
     public void removePasswordFromCurrentUser(){
         getCurrentUser().setPassWord(null);
     }
-
     public List<User> getAllUsers(){
         return userRepo.findAll();
     }

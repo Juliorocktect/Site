@@ -70,12 +70,25 @@ public class VideoService {
         }
         return "There is no such user with this id";
     }
+    public void setThumbnailUrl(String id, String Url){
+        Optional<Video> videoPerId = getVideoPerId(id);
+        if (videoPerId.isPresent()){
+            videoPerId.get().setThumbnailUrl(Url);
+        }
+    }
+    public void setVideoUrl(String id, String Url){
+        Optional<Video> videoPerId = getVideoPerId(id);
+        if (videoPerId.isPresent()){
+            videoPerId.get().setVideoUrl(Url);
+        }
+    }
 
     public boolean addComment(String id,String content,String authorId){
         Comment comment = new Comment(content,authorId);
         Optional<Video> videoPerId = getVideoPerId(id);
         if(videoPerId.isPresent()){
             videoPerId.get().getComments().add(comment);
+            repo.save(videoPerId.get());
             return true;
         }
         return false;
