@@ -41,7 +41,11 @@ public class UserController {
         return HttpStatus.BAD_REQUEST;
 
     }
-
+    @GetMapping("/getCurrentUser")
+    public User getCurrentUser(){
+        service.removePasswordFromCurrentUser();
+        return service.getCurrentUser();
+    }
     @GetMapping("/getAllUsers")
     public List<User> getAllUsers(){
         return service.getAllUsers();

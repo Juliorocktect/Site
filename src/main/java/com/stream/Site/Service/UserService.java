@@ -21,11 +21,12 @@ public class UserService {
 
     @Autowired
     private UserRepo userRepo;
+    private User currentUser;
     public boolean newUser( String passWord,
                             String firstName,
                             String lastName,
                             String userName,
-                            String pictureUrl){
+                            String pictureUrl) {
         if (checkIfUserNameIsAvailable(userName)) {
             User user = new User(passWord, firstName, lastName, userName, pictureUrl);
             userRepo.save(user);
@@ -36,6 +37,14 @@ public class UserService {
         }
         return false;
     }
+
+    public User getCurrentUser() {
+            return currentUser;
+    }
+    public void removePasswordFromCurrentUser(){
+        getCurrentUser().setPassWord(null);
+    }
+
     public List<User> getAllUsers(){
         return userRepo.findAll();
     }
@@ -50,12 +59,20 @@ public class UserService {
         return userPerId != null;
     }
     public HttpStatus userLogin(String userName,String passWord){
-        List<User> allUsers = getAllUsers();
-        Optional<User> currentUser = allUsers.stream().filter(p -> p.getUserName().equals(userName)).findFirst();
-        User user = currentUser.get();
+        try
+        {
+            List<User> allUsers = getAllUsers();
+            Optional<User> currentUser = allUsers.stream().filter(p -> p.getUserName().equals(userName)).findFirst();
+            User user = currentUser.get();
             if (checkIfPassWordIsTrue(passWord,user)){
+                this.currentUser = user;
                 return HttpStatus.OK;
+
             }
+        }
+        catch (NullPointerException e){
+            throw new NullPointerException("Flasche Daten");
+        }
         return HttpStatus.BAD_REQUEST;
     }
     public boolean checkIfPassWordIsTrue(String passWord,User user){
