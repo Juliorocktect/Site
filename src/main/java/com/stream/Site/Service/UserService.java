@@ -89,6 +89,19 @@ public class UserService {
         return false;
 
     }
+    public boolean addToLikedVideos(String videoId){
+        User currentuser = getCurrentUser();
+        currentuser.addToLikedVideos(videoId);
+        userRepo.save(currentuser);
+        return true;
+    }
+    public boolean addToDislikedVideos(String videoId){
+        User currentuser = getCurrentUser();
+        currentuser.addToDislikedVideos(videoId);
+        userRepo.save(currentuser);
+        return true; 
+        //TODO: add check 
+    }
 
 
 }

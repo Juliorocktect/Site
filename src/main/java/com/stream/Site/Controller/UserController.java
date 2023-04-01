@@ -72,6 +72,9 @@ public class UserController {
         }
         return HttpStatus.BAD_REQUEST;
     }
+    public HttpStatus addVideoToLikedVideos(String videoId){
+        
+    }
 
 
 }
