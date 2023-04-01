@@ -1,4 +1,4 @@
-package com.stream.Site;
+package com.stream.Site.Controller;
 
 import com.stream.Site.Service.FileUploadService;
 import com.stream.Site.Service.VideoService;

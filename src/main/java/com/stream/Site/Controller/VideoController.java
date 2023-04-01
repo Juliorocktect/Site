@@ -48,7 +48,8 @@ public class VideoController {
                     "id",
                     "content",
                     "authorId",
-                    }
+                    },
+            method = POST
     )
     public HttpStatus addComment(@RequestParam("id") String id,
                                  @RequestParam("content") String content,
@@ -56,7 +57,9 @@ public class VideoController {
         if(service.addComment(id,content,authorId)){
             return HttpStatus.OK;
         }
-        return HttpStatus.BAD_REQUEST;
+        else {
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 
     @GetMapping("/getAllVideos")

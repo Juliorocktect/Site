@@ -6,7 +6,10 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletionException;
+import java.util.stream.Collectors;
 
 import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.stereotype.Component;
@@ -37,5 +40,17 @@ public class Video {
         this.userId = userId;
         this.videoUrl = videoUrl;
         this.thumbnailUrl = thumbnailUrl;
+        List<Comment> commentList =  new ArrayList<>();
+        this.comments = commentList;
+    }
+
+    public void addComment(String content,String authorId){
+        Comment comment = new Comment(content,authorId);
+        comments.add(comment);
+    }
+    public void removeComment(String authorId){
+        List<Comment> commentList = getComments();
+        List<Comment> collected = commentList.stream().filter(p -> p.getAuthorId().equals(authorId)).collect(Collectors.toList());
+        comments.remove(collected);
     }
 }

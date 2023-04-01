@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -31,7 +33,6 @@ public class VideoService {
                                    String thumbnailUrl)
     {
         if(userService.checkIfUserExists(userId)) {
-            ; //TODO: if statement
             Video video = new Video(title, description, userId, videoUrl, thumbnailUrl);
             repo.save(video);
             String videoId = video.getId();
@@ -84,13 +85,46 @@ public class VideoService {
     }
 
     public boolean addComment(String id,String content,String authorId){
-        Comment comment = new Comment(content,authorId);
         Optional<Video> videoPerId = getVideoPerId(id);
-        if(videoPerId.isPresent()){
-            videoPerId.get().getComments().add(comment);
-            repo.save(videoPerId.get());
+        if(videoPerId.isPresent()){ //TODO: check if user exists
+            Video video = videoPerId.get();
+            video.addComment(content,authorId);
+            repo.save(video);
             return true;
         }
+        return false;
+    }
+    public boolean removeComment(String videoId, String authorId){
+        Optional<Video> videoPerId = getVideoPerId(videoId);
+        if(videoPerId.isPresent()){
+            videoPerId.get().removeComment(authorId);
+            if(checkIfCommentExists(videoId,authorId)){
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkIfCommentExists(String videoId ,String authorId){
+        Optional<Video> videoPerId = getVideoPerId(videoId);
+        if (videoPerId.isPresent()){
+            List<Comment> commentList = videoPerId.get().getComments();
+            List<Comment> collect = commentList.stream().filter(p -> p.getAuthorId().equals(authorId)).toList();
+            if (!collect.isEmpty()){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        return false;
+    }
+    public boolean addLikeToComment(String commentId){
+        //fill
+        return false;
+    }
+    public boolean addDislikeToComment(String commentId){
+        //fill+
         return false;
     }
 
