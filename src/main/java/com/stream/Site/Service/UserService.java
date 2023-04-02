@@ -2,6 +2,7 @@ package com.stream.Site.Service;
 
 import com.stream.Site.Controller.UserController;
 import com.stream.Site.Controller.VideoController;
+import com.stream.Site.Model.Video;
 import com.stream.Site.Repository.UserRepo;
 import com.stream.Site.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +23,11 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
     private User currentUser;
-    public boolean newUser( String passWord,
-                            String firstName,
-                            String lastName,
-                            String userName,
-                            String pictureUrl) {
-        if (checkIfUserNameIsAvailable(userName)) {
-            User user = new User(passWord, firstName, lastName, userName, pictureUrl);
+    public boolean newUser(User user) {
+        if (checkIfUserNameIsAvailable(user.getUserName())) {
             userRepo.save(user);
             String userId = user.getId();
-            if (userRepo.findById(user.getId()).isPresent()) {
-                return true;
-            }
+            return userRepo.findById(userId).isPresent();
         }
         return false;
     }
@@ -90,17 +84,40 @@ public class UserService {
 
     }
     public boolean addToLikedVideos(String videoId){
-        User currentuser = getCurrentUser();
-        currentuser.addToLikedVideos(videoId);
-        userRepo.save(currentuser);
-        return true;
+        if (checkIfUserHasSubmittedTodisliked(videoId)){
+            User currentuser = getCurrentUser();
+            currentuser.removeFromDislikedVideos(videoId);
+            currentuser.addToLikedVideos(videoId);
+            userRepo.save(currentuser);
+            return true;
+        }
+        return false;
     }
     public boolean addToDislikedVideos(String videoId){
+        if (checkIfUserSubmittedLiked(videoId)){
+            User currentuser = getCurrentUser();
+            currentuser.addToDislikedVideos(videoId);
+            currentuser.removeFromLikedVideos(videoId);
+            userRepo.save(currentuser);
+            return true;
+        } else if (!checkIfUserSubmittedLiked(videoId)) {
+            User currentuser = getCurrentUser();
+            currentuser.addToDislikedVideos(videoId);
+            userRepo.save(currentuser);
+            return true;
+        } else if (checkIfUserHasSubmittedTodisliked(videoId)) {
+            return false;
+        }
+        return false;
+    }
+
+    public boolean checkIfUserHasSubmittedTodisliked(String videoId){
         User currentuser = getCurrentUser();
-        currentuser.addToDislikedVideos(videoId);
-        userRepo.save(currentuser);
-        return true; 
-        //TODO: add check 
+        return currentuser.getDislikedVideos().contains(videoId);
+    }
+    public boolean checkIfUserSubmittedLiked(String videoId){
+        User currentUser1 = getCurrentUser();
+        return currentUser1.getLikedVideos().contains(videoId);
     }
 
 

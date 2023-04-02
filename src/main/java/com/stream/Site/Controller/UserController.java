@@ -4,6 +4,7 @@ import com.stream.Site.Model.User;
 import com.stream.Site.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.stream.Site.Service.UserService;
 
@@ -15,31 +16,18 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private final UserService service = new UserService();
 
-    @RequestMapping(
-            value = "/createNewUser",
-            params = {
-                    "passWord",
-                    "firstName",
-                    "lastName",
-                    "userName",
-                    "pictureUrl",
-            },
-            method = POST)
-    public HttpStatus createNewUser(@RequestParam("passWord") String passWord,
-                                    @RequestParam("firstName") String firstName,
-                                    @RequestParam("lastName") String lastName,
-                                    @RequestParam("userName") String userName,
-                                    @RequestParam("pictureUrl") String pictureUrl){
-        if(service.newUser(passWord,firstName,lastName,userName,pictureUrl)){
-            return HttpStatus.OK;
+    @PostMapping("/create")
+    public String create(@RequestBody User user){
+        if(service.newUser(user)){
+            return "Ok";
         }
-        return HttpStatus.BAD_REQUEST;
-
+        return "Bad Request";
     }
     @GetMapping("/getCurrentUser")
     public User getCurrentUser(){
@@ -57,23 +45,16 @@ public class UserController {
         return service.getUserPerId(id);
     }
 
-    @RequestMapping(
-            value = "/login",
-            params = {
-                    "userName",
-                    "passWord",
-            },
-            method = POST
-    )
-    public HttpStatus login(@RequestParam String userName,@RequestParam String passWord){
-        service.userLogin(userName,passWord);
-        if (service.userLogin(userName,passWord).equals(HttpStatus.OK)){
+   @PostMapping("/login")
+    public HttpStatus login(@RequestBody User user){
+        service.userLogin(user.getUserName(), user.getPassWord());
+        if (service.userLogin(user.getUserName(),user.getPassWord()).equals(HttpStatus.OK)){
             return HttpStatus.OK;
         }
         return HttpStatus.BAD_REQUEST;
     }
     public HttpStatus addVideoToLikedVideos(String videoId){
-        
+        return HttpStatus.OK;
     }
 
 

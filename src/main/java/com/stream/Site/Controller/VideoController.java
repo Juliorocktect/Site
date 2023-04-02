@@ -1,5 +1,6 @@
 package com.stream.Site.Controller;
 
+import com.stream.Site.Model.Comment;
 import com.stream.Site.Model.User;
 import com.stream.Site.Model.Video;
 import com.stream.Site.Repository.VideoRepo;
@@ -51,10 +52,8 @@ public class VideoController {
                     },
             method = POST
     )
-    public HttpStatus addComment(@RequestParam("id") String id,
-                                 @RequestParam("content") String content,
-                                 @RequestParam("authorId") String authorId){
-        if(service.addComment(id,content,authorId)){
+    public HttpStatus addComment(@RequestBody Comment comment){
+        if(service.addComment(comment)){
             return HttpStatus.OK;
         }
         else {
@@ -68,7 +67,6 @@ public class VideoController {
     }
 
     @RequestMapping(value = "/getVideoPerId/{id}", method = GET)
-    @ResponseBody
     public Optional<Video> getVideoPerId(@PathVariable String id){
         return service.getVideoPerId(id);
     }

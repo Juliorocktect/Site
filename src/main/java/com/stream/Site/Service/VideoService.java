@@ -75,20 +75,22 @@ public class VideoService {
         Optional<Video> videoPerId = getVideoPerId(id);
         if (videoPerId.isPresent()){
             videoPerId.get().setThumbnailUrl(Url);
+            repo.save(videoPerId.get());
         }
     }
     public void setVideoUrl(String id, String Url){
         Optional<Video> videoPerId = getVideoPerId(id);
         if (videoPerId.isPresent()){
             videoPerId.get().setVideoUrl(Url);
+            repo.save(videoPerId.get());
         }
     }
 
-    public boolean addComment(String id,String content,String authorId){
-        Optional<Video> videoPerId = getVideoPerId(id);
+    public boolean addComment(Comment comment){
+        Optional<Video> videoPerId = getVideoPerId(comment.getVideoId());
         if(videoPerId.isPresent()){ //TODO: check if user exists
             Video video = videoPerId.get();
-            video.addComment(content,authorId);
+            video.addComment(comment);
             repo.save(video);
             return true;
         }
@@ -127,5 +129,24 @@ public class VideoService {
         //fill+
         return false;
     }
+    public String getvideoUrlPerId(String id){
+        Optional<Video> videoPerId = getVideoPerId(id);
+        if (videoPerId.isPresent()){
+            return "http://localhost:8080/video/" + id;
+        }
+        return "wrong id or video does not exists";
+    }
+    public String getThumbnailUrlPerId(String id){
+        Optional<Video> videoPerId = getVideoPerId(id);
+        if (videoPerId.isPresent()){
+            return "http://localhost:8080/getThumbnail" + id;
+        }
+        return "wrong id or video does not exists";
+    }
+    public String getTitle(String id){
+        Optional<Video> videoPerId = getVideoPerId(id);
+        return videoPerId.get().getTitle();
 
+
+    }
 }

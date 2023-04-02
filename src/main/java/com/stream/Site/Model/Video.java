@@ -44,8 +44,7 @@ public class Video {
         this.comments = commentList;
     }
 
-    public void addComment(String content,String authorId){
-        Comment comment = new Comment(content,authorId);
+    public void addComment(Comment comment){
         comments.add(comment);
     }
     public void removeComment(String authorId){

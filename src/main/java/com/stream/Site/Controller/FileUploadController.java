@@ -29,6 +29,7 @@ public class FileUploadController {
     @PostMapping("/uploadVideo")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,@RequestParam("id") String id)throws IOException {
         fileUploadService.uploadFile(file,id);
+        videoService.setVideoUrl(id,videoService.getvideoUrlPerId(id));
         return "succes";
     }
     @PostMapping

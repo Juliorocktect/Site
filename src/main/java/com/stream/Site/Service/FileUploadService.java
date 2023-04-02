@@ -18,6 +18,7 @@ public class FileUploadService {
     public void uploadFile(MultipartFile file, String id) throws IOException {
         createNewDirectoryForVideoId(id);
         file.transferTo(new File(path + id+"/" + file.getOriginalFilename()));
+        renameFile(file.getOriginalFilename(),service.getTitle(id),id);
     }
 
     public void createNewDirectoryForVideoId(String id){
@@ -39,10 +40,9 @@ public class FileUploadService {
         return "wrong id or video does not exists";
     }
 
-    public String renameFile(String oldname,String newName){
-        File file = new File(path + oldname);
-        File rename = new File(path + newName);
-
+    public String renameFile(String oldname,String newName,String videoId){
+        File file = new File(path + videoId +"/" + oldname);
+        File rename = new File(path + videoId +"/" + newName + ".mp4");
         boolean status = file.renameTo(rename);
 
         if (status){
