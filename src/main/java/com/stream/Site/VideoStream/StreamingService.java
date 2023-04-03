@@ -25,7 +25,7 @@ public class StreamingService {
 
     public Mono<Resource> getVideo(String videoId){
         String title = service.getVideoPerId(videoId).get().getTitle();
-        String path = "classpath:videos/" + videoId +"/" + "%s.mp4";
+        String path = "file:///srv/http/" + videoId +"/" + "%s.mp4";
         return Mono.fromSupplier(() -> resourceLoader.
                 getResource(String.format(path, title)));
     }

@@ -1,16 +1,19 @@
 package com.stream.Site.Service;
 
-import com.stream.Site.Model.Comment;
-import com.stream.Site.Model.User;
+import com.stream.Site.Model.*;
 import com.stream.Site.Repository.VideoRepo;
-import com.stream.Site.Model.Video;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.StringTokenizer;
@@ -28,12 +31,10 @@ public class VideoService {
 
     public boolean createNewVideo( String title,
                                    String description,
-                                   String userId,
-                                   String videoUrl,
-                                   String thumbnailUrl)
+                                   String userId)
     {
         if(userService.checkIfUserExists(userId)) {
-            Video video = new Video(title, description, userId, videoUrl, thumbnailUrl);
+            Video video = new Video(title, description, userId);
             repo.save(video);
             String videoId = video.getId();
             if (repo.findById(video.getId()).isPresent()) {
@@ -48,12 +49,13 @@ public class VideoService {
     public Optional<Video> getVideoPerId(String id){
         return repo.findById(id);
     }
-    public String getThumbnail(String id){
+    public String  getThumbnailPath(String id){
         Optional<Video> videoPerId = getVideoPerId(id);
         if (videoPerId.isPresent()){
-            return videoPerId.get().getThumbnailUrl();
+            String path = "classpath:videos/" + id +"/" + videoPerId.get().getThumbnailData().getName();
+            return path;
         }
-        return "no such Video with this id";
+        return "bad";
     }
     public String getVideoUrl(String id){
         Optional<Video> videoPerId = getVideoPerId(id);
@@ -62,7 +64,6 @@ public class VideoService {
         }
         return "no such Video with this id";
     }
-
     public String getAuthor(String id) {
         Optional<Video> videoPerId = getVideoPerId(id);
         if(videoPerId.isPresent()){
@@ -75,6 +76,22 @@ public class VideoService {
         Optional<Video> videoPerId = getVideoPerId(id);
         if (videoPerId.isPresent()){
             videoPerId.get().setThumbnailUrl(Url);
+            repo.save(videoPerId.get());
+        }
+    }
+    public void setVideoData(String videoId,String name,String type,long bytes){
+        Optional<Video> videoPerId = getVideoPerId(videoId);
+        if (videoPerId.isPresent()){
+            Content content = new Content(name, type, bytes);
+            videoPerId.get().setVideoData(content);
+            repo.save(videoPerId.get());
+        }
+    }
+    public void setThumbnailData(String videoId,String name,String type,long bytes){
+        Optional<Video> videoPerId = getVideoPerId(videoId);
+        if (videoPerId.isPresent()){
+            Content content = new Content(name, type, bytes);
+            videoPerId.get().setThumbnailData(content);
             repo.save(videoPerId.get());
         }
     }
@@ -139,14 +156,13 @@ public class VideoService {
     public String getThumbnailUrlPerId(String id){
         Optional<Video> videoPerId = getVideoPerId(id);
         if (videoPerId.isPresent()){
-            return "http://localhost:8080/getThumbnail" + id;
+            String name = videoPerId.get().getThumbnailData().getName();
+            return "http://localhost:80/" + id + "/" + name;
         }
         return "wrong id or video does not exists";
     }
     public String getTitle(String id){
         Optional<Video> videoPerId = getVideoPerId(id);
         return videoPerId.get().getTitle();
-
-
     }
 }

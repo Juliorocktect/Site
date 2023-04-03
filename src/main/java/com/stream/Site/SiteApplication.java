@@ -49,6 +49,8 @@ public class SiteApplication {
 		return 5;
 	}
 	@Bean
+	public long getLong(){return 1233;}
+	@Bean
 	CommandLineRunner runner(UserRepo repo){
 		return args -> {
 			User user = new User("jihawuih","Juliu","Klu","Julio","https://google.com");

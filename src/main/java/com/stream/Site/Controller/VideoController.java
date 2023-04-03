@@ -1,25 +1,28 @@
 package com.stream.Site.Controller;
 
 import com.stream.Site.Model.Comment;
-import com.stream.Site.Model.User;
 import com.stream.Site.Model.Video;
-import com.stream.Site.Repository.VideoRepo;
 import com.stream.Site.Service.VideoService;
+import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
+@EnableWebMvc
 @RestController
 public class VideoController {
 
     @Autowired
     private VideoService service;
+    @Autowired
+    ServletContext context;
 
     @RequestMapping(
             value = "/createNewVideo",
@@ -27,17 +30,13 @@ public class VideoController {
                     "title",
                     "description",
                     "userId",
-                    "videoUrl",
-                    "thumbnailUrl",
             },
             method = POST)
     public HttpStatus createVideo(@RequestParam("title") String title,
                                   @RequestParam("description") String description,
-                                  @RequestParam("userId") String userId,
-                                  @RequestParam("videoUrl") String videoUrl,
-                                  @RequestParam("thumbnailUrl") String thumbnailUrl)
+                                  @RequestParam("userId") String userId)
     {
-        if(service.createNewVideo(title,description,userId,videoUrl,thumbnailUrl)){
+        if(service.createNewVideo(title,description,userId)){
             return HttpStatus.OK;
         }
         return HttpStatus.BAD_REQUEST;
@@ -71,9 +70,10 @@ public class VideoController {
         return service.getVideoPerId(id);
     }
 
-    @RequestMapping(value = "/getThumbnail/{id}",method = GET)
-    public String getThumbnail(@PathVariable String id){
-        return service.getThumbnail(id);
+    @RequestMapping(value = "/getThumbnail/{id}",method = GET,produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @ResponseBody
+    public String getThumbnailUrl(@PathVariable String id){
+        return service.getThumbnailUrlPerId(id);
     }
 
     @RequestMapping(value = "/getVideo/{id}",method = GET)

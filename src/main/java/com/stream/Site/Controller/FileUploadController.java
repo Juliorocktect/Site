@@ -32,10 +32,9 @@ public class FileUploadController {
         videoService.setVideoUrl(id,videoService.getvideoUrlPerId(id));
         return "succes";
     }
-    @PostMapping
+    @PostMapping("/uploadThumbnail")
     public HttpStatus uploadThumbnail(@RequestParam("file") MultipartFile file,@RequestParam("id") String id) throws IOException{
         fileUploadService.uploadThumbnail(file,id);
-        videoService.setThumbnailUrl(id,fileUploadService.getThumbnailUrl(id));
         return HttpStatus.OK;
     }
 

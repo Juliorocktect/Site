@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletionException;
 import java.util.stream.Collectors;
 
@@ -30,16 +31,16 @@ public class Video {
     private Integer likes;
     private Integer dislikes;
     private String videoUrl;
+    private Content videoData;
     private Integer views;
     private String thumbnailUrl;
+    private Content thumbnailData;
     private List<Comment> comments;
 
-    public Video(String title, String description, String userId,String videoUrl, String thumbnailUrl) {
+    public Video(String title, String description, String userId) {
         this.title = title;
         this.description = description;
         this.userId = userId;
-        this.videoUrl = videoUrl;
-        this.thumbnailUrl = thumbnailUrl;
         List<Comment> commentList =  new ArrayList<>();
         this.comments = commentList;
     }

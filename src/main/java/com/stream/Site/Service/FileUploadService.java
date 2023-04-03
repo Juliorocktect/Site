@@ -14,10 +14,12 @@ import java.util.Optional;
 public class FileUploadService {
     @Autowired
     private VideoService service;
-    private final String path = "/home/juli/IdeaProjects/Site/src/main/resources/videos/";
+    private final String path = "/srv/http/";
     public void uploadFile(MultipartFile file, String id) throws IOException {
         createNewDirectoryForVideoId(id);
         file.transferTo(new File(path + id+"/" + file.getOriginalFilename()));
+        service.setVideoData(id,service.getTitle(id),file.getContentType(),file.getSize());
+        service.setVideoUrl(id,service.getvideoUrlPerId(id));
         renameFile(file.getOriginalFilename(),service.getTitle(id),id);
     }
 
@@ -26,10 +28,9 @@ public class FileUploadService {
     }
 
     public void uploadThumbnail(MultipartFile file,String id) throws IOException {
+        service.setThumbnailData(id,file.getOriginalFilename(),file.getContentType(), file.getSize());
+        service.setThumbnailUrl(id,service.getThumbnailUrlPerId(id));
         file.transferTo(new File(path + id + "/" + file.getOriginalFilename()));
-    }
-    public String getThumbnailUrl(String id){
-        return "http://localhost:8080/getThumbnail?id=" + id;
     }
     public String getVideoUrl(String id){
         Optional<Video> videoPerId = service.getVideoPerId(id);
