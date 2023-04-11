@@ -60,13 +60,13 @@ public class VideoController {
         }
     }
 
-    @GetMapping("/getAllVideos")
-    public List<Video> getAllUsers(){
-        return service.getAllVideos();
+    @GetMapping("/getTenVideos")
+    public List<Video> getTenVideos(){
+        return service.getTenVideos();
     }
 
-    @RequestMapping(value = "/getVideoPerId/{id}", method = GET)
-    public Optional<Video> getVideoPerId(@PathVariable String id){
+    @RequestMapping(value = "/getVideoPerId", method = GET)
+    public Optional<Video> getVideoPerId(@RequestParam String id){
         return service.getVideoPerId(id);
     }
 

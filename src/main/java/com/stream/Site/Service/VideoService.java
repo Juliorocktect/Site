@@ -165,4 +165,12 @@ public class VideoService {
         Optional<Video> videoPerId = getVideoPerId(id);
         return videoPerId.get().getTitle();
     }
+
+    public List<Video> getTenVideos() {
+        List<Video> all = repo.findAll();
+       return all.stream().limit(10).collect(Collectors.toList());
+
+
+
+    }
 }
