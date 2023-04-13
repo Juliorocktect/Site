@@ -33,7 +33,7 @@ public class FileUploadService {
         file.transferTo(new File(path + id + "/" + file.getOriginalFilename()));
     }
     public String getVideoUrl(String id){
-        Optional<Video> videoPerId = service.getVideoPerId(id);
+        Optional<Video> videoPerId = service.getVideoPerId(id); // ist it already in VideoService?
         if (videoPerId.isPresent()){
             String title = videoPerId.get().getTitle();
             return "http://localhost:8080/video/" + title;

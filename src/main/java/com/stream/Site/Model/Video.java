@@ -41,16 +41,23 @@ public class Video {
         this.title = title;
         this.description = description;
         this.userId = userId;
-        List<Comment> commentList =  new ArrayList<>();
+        List<Comment> commentList = new ArrayList<>();
         this.comments = commentList;
+        this.likes = 0;
+        this.dislikes = 0;
     }
 
-    public void addComment(Comment comment){
+    public void addComment(Comment comment) {
         comments.add(comment);
     }
-    public void removeComment(String authorId){
+
+    public void removeComment(String authorId) {
         List<Comment> commentList = getComments();
         List<Comment> collected = commentList.stream().filter(p -> p.getAuthorId().equals(authorId)).collect(Collectors.toList());
         comments.remove(collected);
+    }
+
+    public void like() {
+        likes++;
     }
 }

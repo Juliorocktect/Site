@@ -16,6 +16,7 @@ import java.util.Optional;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @EnableWebMvc
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class VideoController {
 
@@ -54,39 +55,41 @@ public class VideoController {
     public HttpStatus addComment(@RequestBody Comment comment){
         if(service.addComment(comment)){
             return HttpStatus.OK;
-        }
-        else {
+        } else {
             return HttpStatus.BAD_REQUEST;
         }
     }
 
     @GetMapping("/getTenVideos")
-    public List<Video> getTenVideos(){
+    public List<Video> getTenVideos() {
         return service.getTenVideos();
     }
 
-    @RequestMapping(value = "/getVideoPerId", method = GET)
-    public Optional<Video> getVideoPerId(@RequestParam String id){
+    @GetMapping("/getVideoPerId/{id}")
+    public Optional<Video> getVideoPerId(@PathVariable String id) {
         return service.getVideoPerId(id);
     }
 
-    @RequestMapping(value = "/getThumbnail/{id}",method = GET,produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @RequestMapping(value = "/getThumbnail/{id}", method = GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
-    public String getThumbnailUrl(@PathVariable String id){
+    public String getThumbnailUrl(@PathVariable String id) {
         return service.getThumbnailUrlPerId(id);
     }
 
-    @RequestMapping(value = "/getVideo/{id}",method = GET)
-    public String getVideo(@PathVariable String id){
+    @RequestMapping(value = "/getVideo/{id}", method = GET)
+    public String getVideo(@PathVariable String id) {
         return service.getVideoUrl(id);
     }
 
-    @RequestMapping(value = "/getAuthor/{id}",method = GET)
-    public String getAuthor(@PathVariable String id){
+    @RequestMapping(value = "/getAuthor/{id}", method = GET)
+    public String getAuthor(@PathVariable String id) {
         return service.getAuthor(id);
     }
 
-
+    @PostMapping("/like/{id}")
+    public void like(@PathVariable String id) {
+        service.like(id);
+    }
 
 
 }

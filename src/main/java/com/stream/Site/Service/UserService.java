@@ -111,13 +111,19 @@ public class UserService {
         return false;
     }
 
-    public boolean checkIfUserHasSubmittedTodisliked(String videoId){
+    public boolean checkIfUserHasSubmittedTodisliked(String videoId) {
         User currentuser = getCurrentUser();
         return currentuser.getDislikedVideos().contains(videoId);
     }
-    public boolean checkIfUserSubmittedLiked(String videoId){
+
+    public boolean checkIfUserSubmittedLiked(String videoId) {
         User currentUser1 = getCurrentUser();
         return currentUser1.getLikedVideos().contains(videoId);
+    }
+
+    public String getProfilePic(String id) {
+        User userPerId = getUserPerId(id);
+        return userPerId.getPictureUrl();
     }
 
 

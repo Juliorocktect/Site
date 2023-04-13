@@ -30,11 +30,6 @@ public class SiteApplication {
 		System.out.println("range in bytes() : " + range);
 		return service.getVideo(videoId);
 	}
-	@GetMapping(
-			value = "/getThumnail",
-			produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
-	)
-
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiteApplication.class, args);

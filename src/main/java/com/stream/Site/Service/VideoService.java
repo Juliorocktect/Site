@@ -155,22 +155,27 @@ public class VideoService {
     }
     public String getThumbnailUrlPerId(String id){
         Optional<Video> videoPerId = getVideoPerId(id);
-        if (videoPerId.isPresent()){
+        if (videoPerId.isPresent()) {
             String name = videoPerId.get().getThumbnailData().getName();
             return "http://localhost:80/" + id + "/" + name;
         }
         return "wrong id or video does not exists";
     }
-    public String getTitle(String id){
+
+    public String getTitle(String id) {
         Optional<Video> videoPerId = getVideoPerId(id);
         return videoPerId.get().getTitle();
     }
 
     public List<Video> getTenVideos() {
-        List<Video> all = repo.findAll();
-       return all.stream().limit(10).collect(Collectors.toList());
+        return repo.findAll().stream().limit(5).toList();
+    }
 
-
-
+    public void like(String id) {
+        Optional<Video> videoPerId = getVideoPerId(id);
+        if (videoPerId.isPresent()) {
+            videoPerId.get().like();
+            repo.save(videoPerId.get());
+        }
     }
 }
