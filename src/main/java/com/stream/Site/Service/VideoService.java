@@ -14,12 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.Optional;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.resolve;
 
 @Service
 @RestController
@@ -178,4 +178,36 @@ public class VideoService {
             repo.save(videoPerId.get());
         }
     }
+
+    public List<Video> search(String text) {
+        List<Video> all = repo.findAll();
+        List<Video> videosFiltered = new ArrayList<Video>();
+        videosFiltered.addAll(all.stream().filter(p -> p.getTitle().equals(text)).toList());
+        videosFiltered.addAll(all.stream().filter(p -> p.getDescription().equals(text)).toList());
+        return videosFiltered;
+    }
+
+    public int minimum(List<Video> videoMap) {
+        int minIndex = 0;
+        for (int i = 0; i < videoMap.size(); ++i) {
+            if (videoMap.get(i).getRating() < videoMap.get(minIndex).getRating()) {
+                minIndex = i;
+            }
+        }
+        return minIndex;
+    }
+
+    public void rateSearchedVideos(List<Video> videosFiltered) {
+        for (int i = 0; i > videosFiltered.size(); i++) {
+            double rating = videosFiltered.get(i).getDislikes();
+            rating = rating + videosFiltered.get(i).getLikes();
+            rating = rating + videosFiltered.get(i).getViews() / 0.5;
+            videosFiltered.get(i).setRating(rating);
+        }
+    }
+
+    public void rate(List<Video> videoList) {
+        rateSearchedVideos(videoList);
+    }
 }
+

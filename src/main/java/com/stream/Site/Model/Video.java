@@ -28,9 +28,11 @@ public class Video {
     private String title;
     private String description;
     private String userId;
+    private String profilePicture;
     private Integer likes;
     private Integer dislikes;
     private String videoUrl;
+    private double rating;
     private Content videoData;
     private Integer views;
     private String thumbnailUrl;
@@ -45,6 +47,7 @@ public class Video {
         this.comments = commentList;
         this.likes = 0;
         this.dislikes = 0;
+        this.profilePicture = "null";
     }
 
     public void addComment(Comment comment) {

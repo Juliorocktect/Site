@@ -35,25 +35,17 @@ public class VideoController {
             method = POST)
     public HttpStatus createVideo(@RequestParam("title") String title,
                                   @RequestParam("description") String description,
-                                  @RequestParam("userId") String userId)
-    {
-        if(service.createNewVideo(title,description,userId)){
+                                  @RequestParam("userId") String userId) {
+        if (service.createNewVideo(title, description, userId)) {
             return HttpStatus.OK;
         }
         return HttpStatus.BAD_REQUEST;
     }
 
-    @RequestMapping(
-            value = "/addComment",
-            params = {
-                    "id",
-                    "content",
-                    "authorId",
-                    },
-            method = POST
-    )
-    public HttpStatus addComment(@RequestBody Comment comment){
-        if(service.addComment(comment)){
+    @PostMapping("/addComment")
+    public HttpStatus addComment(@RequestParam("videoId") String videoId, @RequestParam("content") String content, @RequestParam("authorId") String authorId) {
+        Comment comment = new Comment(content, authorId, videoId);
+        if (service.addComment(comment)) {
             return HttpStatus.OK;
         } else {
             return HttpStatus.BAD_REQUEST;

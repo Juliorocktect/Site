@@ -9,7 +9,7 @@ import com.stream.Site.Service.UserService;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000/")
 @RequestMapping("/user")
 public class UserController {
 
@@ -17,8 +17,14 @@ public class UserController {
     private final UserService service = new UserService();
 
     @PostMapping("/create")
-    public String create(@RequestBody User user){
-        if (service.newUser(user)) {
+    public String create(@RequestParam String firstName,
+                         @RequestParam String lastName,
+                         @RequestParam String userName,
+                         @RequestParam String pictureUrl,
+                         @RequestParam String passWord
+    ) {
+        User newUser = new User(passWord, firstName, lastName, userName, pictureUrl);
+        if (service.newUser(newUser)) {
             return "Ok";
         }
         return "Bad Request";
