@@ -24,18 +24,20 @@ public class User {
     private String lastName;
     private String userName;
     private String pictureUrl;
+    private String bannerUrl;
     private List<String> subscribedToUsers;
     private List<String> subscribers;
     private List<String> videoHistory;
     private List<String> likedVideos;
     private List<String> dislikedVideos;
 
-    public User(String passWord,String firstName, String lastName, String userName, String pictureUrl) {
+    public User(String passWord,String firstName, String lastName, String userName, String pictureUrl,String bannerUrl) {
         this.passWord = passWord;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.pictureUrl = pictureUrl;
+        this.bannerUrl = bannerUrl;
     }
     public void addToSubscribedToUsers(String userId){
         subscribedToUsers.add(userId);

@@ -48,7 +48,7 @@ public class SiteApplication {
 	@Bean
 	CommandLineRunner runner(UserRepo repo){
 		return args -> {
-			User user = new User("jihawuih","Juliu","Klu","Julio","https://google.com");
+			User user = new User("jihawuih","Juliu","Klu","Julio","https://google.com","bannerUrl");
 			repo.insert(user);
 			repo.save(user);
 			repo.delete(user);

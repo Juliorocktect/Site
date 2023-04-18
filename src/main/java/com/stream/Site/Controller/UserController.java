@@ -21,9 +21,10 @@ public class UserController {
                          @RequestParam String lastName,
                          @RequestParam String userName,
                          @RequestParam String pictureUrl,
-                         @RequestParam String passWord
+                         @RequestParam String passWord,
+                         @RequestParam String bannerUrl
     ) {
-        User newUser = new User(passWord, firstName, lastName, userName, pictureUrl);
+        User newUser = new User(passWord, firstName, lastName, userName, pictureUrl,bannerUrl);
         if (service.newUser(newUser)) {
             return "Ok";
         }
