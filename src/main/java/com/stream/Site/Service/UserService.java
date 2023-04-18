@@ -36,7 +36,7 @@ public class UserService {
             return currentUser;
     }
     public void removePasswordFromCurrentUser(){
-        getCurrentUser().setPassWord(null);
+
     }
     public List<User> getAllUsers(){
         return userRepo.findAll();

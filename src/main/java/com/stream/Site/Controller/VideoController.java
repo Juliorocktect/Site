@@ -33,13 +33,10 @@ public class VideoController {
                     "userId",
             },
             method = POST)
-    public HttpStatus createVideo(@RequestParam("title") String title,
+    public String createVideo(@RequestParam("title") String title,
                                   @RequestParam("description") String description,
                                   @RequestParam("userId") String userId) {
-        if (service.createNewVideo(title, description, userId)) {
-            return HttpStatus.OK;
-        }
-        return HttpStatus.BAD_REQUEST;
+        return service.createNewVideo(title,description,userId);
     }
 
     @PostMapping("/addComment")

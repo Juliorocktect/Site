@@ -29,7 +29,7 @@ public class VideoService {
     @Autowired
     private UserService userService;
 
-    public boolean createNewVideo( String title,
+    public String createNewVideo( String title,
                                    String description,
                                    String userId)
     {
@@ -38,10 +38,10 @@ public class VideoService {
             repo.save(video);
             String videoId = video.getId();
             if (repo.findById(video.getId()).isPresent()) {
-                return true;
+                return videoId;
             }
         }
-        return false;
+        return "false";
     }
     public List<Video> getAllVideos(){
         return repo.findAll();
@@ -168,7 +168,7 @@ public class VideoService {
     }
 
     public List<Video> getTenVideos() {
-        return repo.findAll().stream().limit(5).toList();
+        return repo.findAll().stream().limit(15).toList();
     }
 
     public void like(String id) {
