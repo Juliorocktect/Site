@@ -5,6 +5,7 @@
 - [ ] Write Tests & reorganize
 - [x] addComment function
 - [x] Implementation of Search function
+- [ ] upload date and view metrics
 - [ ] Metric System for Prometheus
 - [ ] Algorithm for Video Start-page
 - [ ] Give Comment own id
