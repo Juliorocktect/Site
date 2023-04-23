@@ -1,5 +1,6 @@
 package com.stream.Site.Controller;
 
+import com.mongodb.lang.Nullable;
 import com.stream.Site.Model.Comment;
 import com.stream.Site.Model.Video;
 import com.stream.Site.Service.VideoService;
@@ -39,7 +40,7 @@ public class VideoController {
         return service.createNewVideo(title,description,userId);
     }
 
-    @PostMapping("/addComment")
+    @PostMapping("/addComment") 
     public HttpStatus addComment(@RequestParam("videoId") String videoId, @RequestParam("content") String content, @RequestParam("authorId") String authorId) {
         Comment comment = new Comment(content, authorId, videoId);
         if (service.addComment(comment)) {
@@ -75,10 +76,17 @@ public class VideoController {
         return service.getAuthor(id);
     }
 
-    @PostMapping("/like/{id}")
-    public void like(@PathVariable String id) {
-        service.like(id);
+    @PostMapping("/like")
+    public void like(@RequestParam String id, @Nullable @RequestParam String userId) {
+        service.like(id,userId);
     }
 
+    @PostMapping("/view")
+    public HttpStatus view(@RequestParam @Nullable String userId, String videoId){
+        if (service.view(userId,videoId)) {
+            return HttpStatus.OK;
+        }
+        return HttpStatus.BAD_REQUEST;
+    }
 
 }

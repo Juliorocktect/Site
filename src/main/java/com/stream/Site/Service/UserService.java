@@ -36,7 +36,9 @@ public class UserService {
             return currentUser;
     }
     public void removePasswordFromCurrentUser(){
-
+    }
+    public void save(User user){
+        userRepo.save(user);
     }
     public List<User> getAllUsers(){
         return userRepo.findAll();

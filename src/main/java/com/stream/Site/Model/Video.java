@@ -63,4 +63,5 @@ public class Video {
     public void like() {
         likes++;
     }
+    public void view(){views++;}
 }

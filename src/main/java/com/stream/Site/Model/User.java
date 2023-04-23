@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.ArrayList;
 import java.util.List;
 @Getter
 @Setter
@@ -38,6 +39,11 @@ public class User {
         this.userName = userName;
         this.pictureUrl = pictureUrl;
         this.bannerUrl = bannerUrl;
+        this.subscribedToUsers = new ArrayList<>();
+        this.videoHistory = new ArrayList<>();
+        this.subscribers = new ArrayList<>();
+        this.likedVideos = new ArrayList<>();
+        this.dislikedVideos = new ArrayList<>();
     }
     public void addToSubscribedToUsers(String userId){
         subscribedToUsers.add(userId);

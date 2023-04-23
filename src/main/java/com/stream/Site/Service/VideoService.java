@@ -1,5 +1,6 @@
 package com.stream.Site.Service;
 
+import com.mongodb.lang.Nullable;
 import com.stream.Site.Model.*;
 import com.stream.Site.Repository.VideoRepo;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -171,7 +172,18 @@ public class VideoService {
         return repo.findAll().stream().limit(15).toList();
     }
 
-    public void like(String id) {
+    public void like(String id,@Nullable String userId) {
+        if (userId != null){
+            User userPerId = userService.getUserPerId(userId);
+            if (!userPerId.getLikedVideos().contains(id)){
+                userPerId.addToLikedVideos(id);
+                userService.save(userPerId);
+            }
+            else {
+                userPerId.removeFromLikedVideos(id);
+                userService.save(userPerId);
+            }
+        }
         Optional<Video> videoPerId = getVideoPerId(id);
         if (videoPerId.isPresent()) {
             videoPerId.get().like();
@@ -184,6 +196,9 @@ public class VideoService {
         List<Video> videosFiltered = new ArrayList<Video>();
         videosFiltered.addAll(all.stream().filter(p -> p.getTitle().equals(text)).toList());
         videosFiltered.addAll(all.stream().filter(p -> p.getDescription().equals(text)).toList());
+        if (videosFiltered.isEmpty()){
+
+        }
         return videosFiltered;
     }
 
@@ -209,5 +224,22 @@ public class VideoService {
     public void rate(List<Video> videoList) {
         rateSearchedVideos(videoList);
     }
+    public boolean view(@Nullable String userId, String videoId){
+            if (userId != null){
+                User userPerId = userService.getUserPerId(userId);
+                if (!userPerId.getVideoHistory().contains(videoId)){
+                    userPerId.addToHistory(videoId);
+                    userService.save(userPerId);
+                }
+
+            }
+        Optional<Video> videoPerId = getVideoPerId(videoId);
+        if(videoPerId.isPresent()) {
+            videoPerId.get().view();
+            repo.save(videoPerId.get());
+            return true;
+            }
+        return false;
+        }
 }
 
