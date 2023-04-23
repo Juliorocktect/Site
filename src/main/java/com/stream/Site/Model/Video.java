@@ -6,15 +6,15 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletionException;
 import java.util.stream.Collectors;
 
 import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Document("videos")
 @Data
@@ -37,6 +37,7 @@ public class Video {
     private Integer views;
     private String thumbnailUrl;
     private Content thumbnailData;
+    private LocalDateTime uplaoadDate;
     private List<Comment> comments;
 
     public Video(String title, String description, String userId) {
@@ -48,6 +49,7 @@ public class Video {
         this.likes = 0;
         this.dislikes = 0;
         this.profilePicture = "null";
+        this.uplaoadDate = LocalDateTime.now();
     }
 
     public void addComment(Comment comment) {
