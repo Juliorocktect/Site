@@ -50,6 +50,7 @@ public class Video {
         this.dislikes = 0;
         this.profilePicture = "null";
         this.uplaoadDate = LocalDateTime.now();
+        this.views = 0;
     }
 
     public void addComment(Comment comment) {
@@ -58,8 +59,8 @@ public class Video {
 
     public void removeComment(String authorId) {
         List<Comment> commentList = getComments();
-        List<Comment> collected = commentList.stream().filter(p -> p.getAuthorId().equals(authorId)).collect(Collectors.toList());
-        comments.remove(collected);
+        List<Comment> collected = commentList.stream().filter(p -> p.getAuthorId().equals(authorId)).toList();
+        comments.removeAll(collected);
     }
 
     public void like() {

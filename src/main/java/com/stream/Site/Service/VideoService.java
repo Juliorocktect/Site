@@ -196,9 +196,6 @@ public class VideoService {
         List<Video> videosFiltered = new ArrayList<Video>();
         videosFiltered.addAll(all.stream().filter(p -> p.getTitle().equals(text)).toList());
         videosFiltered.addAll(all.stream().filter(p -> p.getDescription().equals(text)).toList());
-        if (videosFiltered.isEmpty()){
-
-        }
         return videosFiltered;
     }
 

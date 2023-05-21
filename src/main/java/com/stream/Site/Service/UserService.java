@@ -66,7 +66,7 @@ public class UserService {
             }
         }
         catch (NullPointerException e){
-            throw new NullPointerException("Flasche Daten");
+            throw new NullPointerException("Falsche Daten");
         }
         return HttpStatus.BAD_REQUEST;
     }

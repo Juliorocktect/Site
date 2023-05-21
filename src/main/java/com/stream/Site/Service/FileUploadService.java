@@ -14,7 +14,7 @@ import java.util.Optional;
 public class FileUploadService {
     @Autowired
     private VideoService service;
-    private final String path = "/srv/http/";
+    private final String path = "C:\\Apache24\\htdocs";
     public void uploadFile(MultipartFile file, String id) throws IOException {
         createNewDirectoryForVideoId(id);
         file.transferTo(new File(path + id+"/" + file.getOriginalFilename()));

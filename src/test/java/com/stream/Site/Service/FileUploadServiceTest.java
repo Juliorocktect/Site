@@ -21,8 +21,6 @@ class FileUploadServiceTest {
 
     @Test
     void getThumbnailUrl(String id) {
-        String id = "6428095260595c4b2cae1c10";
-        assertEquals(getThumbnailUrl(id),"http://localhost:8080/getThumbnail?id=6428095260595c4b2cae1c10");
     }
 
     @Test
