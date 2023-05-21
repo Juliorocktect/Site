@@ -10,8 +10,7 @@
 - [ ] Algorithm for Video Start-page
 - [ ] Give Comment own id
 - [x] Like & dislike Comment and Video
-![carbon](https://user-images.githubusercontent.com/113830349/229200019-56d538b7-e8be-4829-8d66-ae2c95fc9f5e.png)
-
+![carbon (1)](https://github.com/Juliorocktect/Site/assets/113830349/6b8f9dc9-e02f-4989-9f85-7cc8d0e8aa0a)
 # Nice to know
 - [x] carbon.now.sh
 - [x] sli.dev
