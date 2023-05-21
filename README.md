@@ -2,7 +2,7 @@
 **Site**
 
 > Todo-Liste
-- [ ] Write Tests & reorganize
+- [x] Write Tests & reorganize
 - [x] addComment function
 - [x] Implementation of Search function
 - [ ] upload date and view metrics
