@@ -5,12 +5,14 @@ import com.stream.Site.Service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.io.InputStream;
 
 @Service
+@Component
 public class StreamingService {
     @Autowired
     private FileUploadService fileUploadService;

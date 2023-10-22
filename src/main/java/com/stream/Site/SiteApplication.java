@@ -1,5 +1,7 @@
 package com.stream.Site;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.stream.Site.Repository.UserRepo;
 import com.stream.Site.Repository.VideoRepo;
 import com.stream.Site.VideoStream.StreamingService;
@@ -45,6 +47,7 @@ public class SiteApplication {
 	}
 	@Bean
 	public long getLong(){return 1233;}
+
 	@Bean
 	CommandLineRunner runner(UserRepo repo){
 		return args -> {
@@ -53,7 +56,9 @@ public class SiteApplication {
 			repo.save(user);
 			repo.delete(user);
 		};
-
+	}
+	public MongoClient reactiveMongoClient() {
+		return MongoClients.create("mongodb://exampleapp:example@localhost:27017/exampledb");
 	}
 }
 

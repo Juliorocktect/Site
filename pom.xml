@@ -72,6 +72,11 @@
 			<artifactId>generic-db</artifactId>
 			<version>0.0.3</version>
 		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.6.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
